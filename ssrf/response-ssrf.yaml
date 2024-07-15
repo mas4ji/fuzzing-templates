@@ -6,12 +6,15 @@ info:
   severity: high
   reference:
     - https://github.com/bugcrowd/HUNT/blob/master/ZAP/scripts/passive/SSRF.py
+  metadata:
+    max-request: 12
   tags: ssrf,dast
 
 http:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+  - pre-condition:
+      - type: dsl
+        dsl:
+          - 'method == "GET"'
 
     payloads:
       ssrf:
@@ -125,3 +128,4 @@ http:
         part: body
         regex:
           - 'id[\s\S]+interfaces\/'
+# digest: 4a0a00473045022100df5e466f9b2de4655561801dacd8444d412cca9556662839a5955b6c360fe47e022070272a7069a37a5df17d1177769fa87a3c21dcf8b8898e2b36652602d64adc9c:922c64590222798bb761d5b6d8e72950
