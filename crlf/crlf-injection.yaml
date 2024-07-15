@@ -4,12 +4,15 @@ info:
   name: CRLF Injection
   author: pdteam
   severity: low
+  metadata:
+    max-request: 41
   tags: crlf,dast
 
 http:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+  - pre-condition:
+      - type: dsl
+        dsl:
+          - 'method == "GET"'
 
     payloads:
       escape:
