@@ -7,12 +7,15 @@ info:
   reference:
     - https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Directory%20Traversal/Intruder/directory_traversal.txt
     - https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion
+  metadata:
+    max-request: 46
   tags: lfi,dast,linux
 
 http:
-  - method: GET
-    path:
-      - '{{BaseURL}}'
+  - pre-condition:
+      - type: dsl
+        dsl:
+          - 'method == "GET"'
 
     payloads:
       nix_fuzz:
@@ -76,3 +79,4 @@ http:
         part: body
         regex:
           - 'root:.*:0:0:'
+# digest: 4a0a0047304502206c53383c7a148e9311173ee5bb2bf1177386db240eff9b2f6d8256e88cbf5f1a022100ddb39020f7957af58c62c6ec59c7094277c8193e4ab089cd4cce994da4d140d8:922c64590222798bb761d5b6d8e72950
